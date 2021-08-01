@@ -17,7 +17,7 @@ public class Exame implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
-	private double preco;
+	private Double preco;
 	
 	public Exame() {}
 

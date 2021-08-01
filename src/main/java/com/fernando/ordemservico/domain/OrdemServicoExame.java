@@ -16,8 +16,10 @@ public class OrdemServicoExame implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private double preco;
+	private Double preco;
 	private Integer numeroProtocolo;
+	
+	
 	
 	public OrdemServicoExame() {}
 

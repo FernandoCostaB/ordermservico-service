@@ -11,30 +11,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fernando.ordemservico.domain.Medico;
-import com.fernando.ordemservico.dto.MedicoDTO;
-import com.fernando.ordemservico.services.MedicoService;
+import com.fernando.ordemservico.domain.Exame;
+import com.fernando.ordemservico.dto.ExameDTO;
+import com.fernando.ordemservico.services.ExameService;
 
 @RestController
-@RequestMapping(value="/medicos")
-public class MedicoResource {
+@RequestMapping(value="/exames")
+public class ExameResource {
 	
 	@Autowired
-	private MedicoService service;
-
+	private ExameService service;
+	
 	@CrossOrigin
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<MedicoDTO>> listar() {
-		List<Medico> lista = service.findAll();
-		List<MedicoDTO> listDto = lista.stream().map(obj->new MedicoDTO(obj)).collect(Collectors.toList());
+	public ResponseEntity<List<ExameDTO>> listar() {
+		List<Exame> lista = service.findAll();
+		List<ExameDTO> listDto = lista.stream().map(obj->new ExameDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
-	
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
 		
-		Medico obj = service.findById(id);
+		Exame obj = service.findById(id);
 		
 		return ResponseEntity.ok().body(obj);
 	}
