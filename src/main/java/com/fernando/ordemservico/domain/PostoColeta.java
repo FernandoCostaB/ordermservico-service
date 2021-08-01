@@ -1,11 +1,14 @@
 package com.fernando.ordemservico.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class PostoColeta implements Serializable{
@@ -17,6 +20,9 @@ public class PostoColeta implements Serializable{
 	private Integer id;
 	private String descricao;
 	private String endereco;
+	
+	@OneToMany(mappedBy = "postoColeta")
+	private List<OrdemServico> ordensServicos =  new ArrayList<>();
 	
 	public PostoColeta() {}
 	
@@ -57,6 +63,15 @@ public class PostoColeta implements Serializable{
 		this.endereco = endereco;
 	}
 
+	
+
+	public List<OrdemServico> getOrdensServicos() {
+		return ordensServicos;
+	}
+
+	public void setOrdensServicos(List<OrdemServico> ordensServicos) {
+		this.ordensServicos = ordensServicos;
+	}
 
 	@Override
 	public int hashCode() {

@@ -11,10 +11,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.fernando.ordemservico.domain.Exame;
 import com.fernando.ordemservico.domain.Medico;
+import com.fernando.ordemservico.domain.OrdemServico;
 import com.fernando.ordemservico.domain.Paciente;
 import com.fernando.ordemservico.domain.PostoColeta;
 import com.fernando.ordemservico.repositories.ExameRepository;
 import com.fernando.ordemservico.repositories.MedicoRepository;
+import com.fernando.ordemservico.repositories.OrdemServicoRepository;
 import com.fernando.ordemservico.repositories.PacienteRepository;
 import com.fernando.ordemservico.repositories.PostoColetaRepository;
 
@@ -30,6 +32,8 @@ public class OrdemservicoApplication implements CommandLineRunner {
 	private MedicoRepository medicoRepository;
 	@Autowired
 	private PostoColetaRepository postoColetaRepository;
+	@Autowired
+	private OrdemServicoRepository ordemServicoRepository;
 	
 	
 
@@ -77,7 +81,18 @@ public class OrdemservicoApplication implements CommandLineRunner {
 		
 		postoColetaRepository.saveAll(Arrays.asList(pc1,pc2,pc3,pc4));
 		
+		//Criando Ordem de Servico
+		Date data2 = formato.parse("01/08/2021");
+		OrdemServico os1 = new OrdemServico(null,data2,"GEAP", pac1, pc1, md1);
+		OrdemServico os2 = new OrdemServico(null,data2,"UNIMED", pac2, pc2, md2);
+		OrdemServico os3 = new OrdemServico(null,data2,"BRADESCO", pac3, pc3, md3);
 		
+		
+		pac1.getOrdensServicos().addAll(Arrays.asList(os1));
+		pac2.getOrdensServicos().addAll(Arrays.asList(os2));
+		pac3.getOrdensServicos().addAll(Arrays.asList(os3));
+		
+		ordemServicoRepository.saveAll(Arrays.asList(os1,os2,os3));
 	}
 
 }
