@@ -1,11 +1,17 @@
 package com.fernando.ordemservico.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Exame implements Serializable{
@@ -18,6 +24,10 @@ public class Exame implements Serializable{
 	private Integer id;
 	private String descricao;
 	private Double preco;
+	
+	@JsonBackReference
+	@ManyToMany(mappedBy = "exames")
+	private List<OrdemServicoExame> ordensServicosExames = new ArrayList<>();
 	
 	public Exame() {}
 
@@ -51,6 +61,15 @@ public class Exame implements Serializable{
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
+	
+	public List<OrdemServicoExame> getOrdensServicosExames() {
+		return ordensServicosExames;
+	}
+
+	public void setOrdensServicosExames(List<OrdemServicoExame> ordensServicosExames) {
+		this.ordensServicosExames = ordensServicosExames;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -77,6 +96,7 @@ public class Exame implements Serializable{
 		return true;
 	}
 
+	
 
 	
 	

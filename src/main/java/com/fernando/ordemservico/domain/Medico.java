@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Medico implements Serializable{
 	
@@ -22,6 +24,7 @@ public class Medico implements Serializable{
 	private String especialidade;
 	
 	@OneToMany(mappedBy = "medico")
+	@JsonBackReference
 	private List<OrdemServico> ordensServicos =  new ArrayList<>();
 	
 	public Medico() {}

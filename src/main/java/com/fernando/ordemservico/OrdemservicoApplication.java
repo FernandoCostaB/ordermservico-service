@@ -12,13 +12,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.fernando.ordemservico.domain.Exame;
 import com.fernando.ordemservico.domain.Medico;
 import com.fernando.ordemservico.domain.OrdemServico;
+import com.fernando.ordemservico.domain.OrdemServicoExame;
 import com.fernando.ordemservico.domain.Paciente;
 import com.fernando.ordemservico.domain.PostoColeta;
 import com.fernando.ordemservico.repositories.ExameRepository;
 import com.fernando.ordemservico.repositories.MedicoRepository;
+import com.fernando.ordemservico.repositories.OrdemServicoExameRepository;
 import com.fernando.ordemservico.repositories.OrdemServicoRepository;
 import com.fernando.ordemservico.repositories.PacienteRepository;
 import com.fernando.ordemservico.repositories.PostoColetaRepository;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 @SpringBootApplication
 public class OrdemservicoApplication implements CommandLineRunner {
@@ -34,6 +37,8 @@ public class OrdemservicoApplication implements CommandLineRunner {
 	private PostoColetaRepository postoColetaRepository;
 	@Autowired
 	private OrdemServicoRepository ordemServicoRepository;
+	@Autowired
+	private OrdemServicoExameRepository ordemServicoExameRepository;
 	
 	
 
@@ -79,7 +84,7 @@ public class OrdemservicoApplication implements CommandLineRunner {
 		PostoColeta pc3 = new PostoColeta(null,"Unidade 3", "Rua floriano peixoto nº89");
 		PostoColeta pc4 = new PostoColeta(null,"Unidade 4", "Rua eduardo ribeiro nº100");
 		
-		postoColetaRepository.saveAll(Arrays.asList(pc1,pc2,pc3,pc4));
+		postoColetaRepository.saveAll(Arrays.asList(pc1,pc2,pc3,pc4)); 
 		
 		//Criando Ordem de Servico
 		Date data2 = formato.parse("01/08/2021");
@@ -93,6 +98,22 @@ public class OrdemservicoApplication implements CommandLineRunner {
 		pac3.getOrdensServicos().addAll(Arrays.asList(os3));
 		
 		ordemServicoRepository.saveAll(Arrays.asList(os1,os2,os3));
+		
+		//Criando Ordens de Servicos com Exames
+		OrdemServicoExame osExame1 = new OrdemServicoExame(null, ex1.getPreco(), os1);
+		OrdemServicoExame osExame2 = new OrdemServicoExame(null, ex2.getPreco(), os2);
+		OrdemServicoExame osExame3 = new OrdemServicoExame(null, ex3.getPreco(), os3);
+		
+		ex1.getOrdensServicosExames().addAll(Arrays.asList(osExame1));
+		ex2.getOrdensServicosExames().addAll(Arrays.asList(osExame2));
+		ex3.getOrdensServicosExames().addAll(Arrays.asList(osExame3));
+		
+		osExame1.getExames().addAll(Arrays.asList(ex1));
+		osExame2.getExames().addAll(Arrays.asList(ex2));
+		osExame3.getExames().addAll(Arrays.asList(ex3));
+		
+		
+		ordemServicoExameRepository.saveAll(Arrays.asList(osExame1, osExame2, osExame3));
 	}
 
 }
