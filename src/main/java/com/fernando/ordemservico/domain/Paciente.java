@@ -1,6 +1,7 @@
 package com.fernando.ordemservico.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,15 +17,17 @@ public class Paciente implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	private Date dataNascimento;
 	private String sexo;
 	private String endereco;
 	
 	public Paciente() {}
 	
-	public Paciente(Integer id, String nome, String sexo, String endereco) {
+	public Paciente(Integer id, String nome, Date dataNascimento, String sexo, String endereco) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.dataNascimento = dataNascimento;
 		this.sexo = sexo;
 		this.endereco = endereco;
 	}
@@ -94,6 +97,14 @@ public class Paciente implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 	
 	
