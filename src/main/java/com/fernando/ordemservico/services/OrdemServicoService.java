@@ -18,8 +18,7 @@ public class OrdemServicoService {
 	
 	public OrdemServico findById(Integer id) {
 		Optional<OrdemServico> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado!"));
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!"));
 	}
 	
 	public OrdemServico insert(OrdemServico obj) {
