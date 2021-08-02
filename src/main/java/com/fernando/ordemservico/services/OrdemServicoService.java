@@ -1,16 +1,14 @@
 package com.fernando.ordemservico.services;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fernando.ordemservico.domain.Medico;
 import com.fernando.ordemservico.domain.OrdemServico;
 import com.fernando.ordemservico.domain.OrdemServicoExame;
-import com.fernando.ordemservico.domain.Paciente;
-import com.fernando.ordemservico.domain.PostoColeta;
 import com.fernando.ordemservico.repositories.MedicoRepository;
 import com.fernando.ordemservico.repositories.OrdemServicoExameRepository;
 import com.fernando.ordemservico.repositories.OrdemServicoRepository;
@@ -44,8 +42,14 @@ public class OrdemServicoService {
 	}
 	
 	public OrdemServico insert(OrdemServico obj) {
+		OrdemServicoExame aux = obj.getOrdemServicoExame();
+		obj.setData(Calendar.getInstance().getTime());
 		obj.setId(null);
-		return ordemServicoRepository.save(obj);
+		OrdemServico ordem = ordemServicoRepository.save(obj);
+		aux.setOrdemServico(ordem);
+		ordemServicoExameRepository.save(aux);
+		
+		return ordem;
 	}
 	
 	public OrdemServico update(OrdemServico obj) {

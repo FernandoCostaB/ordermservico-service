@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.fernando.ordemservico.domain.Medico;
 import com.fernando.ordemservico.domain.OrdemServicoExame;
 import com.fernando.ordemservico.repositories.OrdemServicoExameRepository;
 import com.fernando.ordemservico.services.exceptions.ObjectNotFoundException;
@@ -17,5 +18,10 @@ public class OrdemServicoExameService {
 		Optional<OrdemServicoExame> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado!"));
+	}
+	
+	public OrdemServicoExame insert(OrdemServicoExame obj) {
+		obj.setId(null);
+		return repo.save(obj);
 	}
 }

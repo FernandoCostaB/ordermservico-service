@@ -38,7 +38,7 @@ public class OrdemServico implements Serializable{
 	private Medico medico;
 	
 	
-	@OneToOne(cascade = CascadeType.MERGE, mappedBy = "ordemServico")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "ordemServico" )
 	private OrdemServicoExame ordemServicoExame;
 	
 	
