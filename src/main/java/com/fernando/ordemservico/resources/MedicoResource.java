@@ -36,9 +36,7 @@ public class MedicoResource {
 	@CrossOrigin
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
-		
 		Medico obj = service.findById(id);
-		
 		return ResponseEntity.ok().body(obj);
 	}
 	@CrossOrigin
