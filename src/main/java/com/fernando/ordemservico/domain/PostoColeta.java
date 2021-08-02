@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class PostoColeta implements Serializable{
@@ -23,8 +23,8 @@ public class PostoColeta implements Serializable{
 	private String descricao;
 	private String endereco;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "postoColeta")
-	@JsonBackReference
 	private List<OrdemServico> ordensServicos =  new ArrayList<>();
 	
 	public PostoColeta() {}
@@ -67,7 +67,7 @@ public class PostoColeta implements Serializable{
 	}
 
 	
-
+	@JsonIgnore
 	public List<OrdemServico> getOrdensServicos() {
 		return ordensServicos;
 	}

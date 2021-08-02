@@ -13,8 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class OrdemServicoExame implements Serializable {
@@ -28,12 +27,11 @@ public class OrdemServicoExame implements Serializable {
 	private Double preco;
 	
 	@OneToOne
-	@JsonBackReference
+	@JsonIgnore
 	@JoinColumn(name = "ordem_servico_id")
 	private OrdemServico ordemServico;
 	
 	@ManyToMany
-	@JsonManagedReference
 	@JoinTable(
 	name="OS_EXAMES",
 	joinColumns = @JoinColumn(name= "ordem_servico_exame_id"), 
@@ -65,6 +63,7 @@ public class OrdemServicoExame implements Serializable {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
+	@JsonIgnore
 	public OrdemServico getOrdemServico() {
 		return ordemServico;
 	}

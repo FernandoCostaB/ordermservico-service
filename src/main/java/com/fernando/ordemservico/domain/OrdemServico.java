@@ -12,8 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 public class OrdemServico implements Serializable{
 
@@ -27,23 +25,20 @@ public class OrdemServico implements Serializable{
 	private String convenio;
 	
 	@ManyToOne
-	@JsonManagedReference
 	@JoinColumn(name = "paciente_id")
 	private Paciente paciente;
 	
 	@ManyToOne
-	@JsonManagedReference
 	@JoinColumn(name = "posto_coleta_id")
 	private PostoColeta postoColeta;
 	
+
 	@ManyToOne
-	@JsonManagedReference
 	@JoinColumn(name = "medico_id")
 	private Medico medico;
 	
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "ordemServico")
-	@JsonManagedReference
+	@OneToOne(cascade = CascadeType.MERGE, mappedBy = "ordemServico")
 	private OrdemServicoExame ordemServicoExame;
 	
 	

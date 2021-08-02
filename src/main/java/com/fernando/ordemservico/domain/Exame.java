@@ -10,8 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Exame implements Serializable{
@@ -25,7 +24,7 @@ public class Exame implements Serializable{
 	private String descricao;
 	private Double preco;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany(mappedBy = "exames")
 	private List<OrdemServicoExame> ordensServicosExames = new ArrayList<>();
 	
@@ -62,6 +61,7 @@ public class Exame implements Serializable{
 		this.preco = preco;
 	}
 	
+	@JsonIgnore
 	public List<OrdemServicoExame> getOrdensServicosExames() {
 		return ordensServicosExames;
 	}
